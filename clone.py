@@ -4,6 +4,8 @@ import numpy as np
 
 from keras.models import Sequential
 from keras.layers import Flatten, Dense, Lambda
+from keras.layers.convolutional import Convolution2D
+from keras.layers.pooling import MaxPooling2D
 
 
 lines = []
@@ -30,13 +32,19 @@ model = Sequential()
 # Normalize the data
 model.add(Lambda(lambda x: x / 255.0 - 0.5,
                  input_shape=(160, 320, 3)))
+model.add(Convolution2D(6, 5, 5, activation='relu'))
+model.add(MaxPooling2D())
+model.add(Convolution2D(6, 5, 5, activation='relu'))
+model.add(MaxPooling2D())
 model.add(Flatten())
+model.add(Dense(120))
+model.add(Dense(84))
 model.add(Dense(1))
 
 model.compile(loss='mse', optimizer='adam')
 model.fit(X_train, y_train,
           validation_split=0.2,
           shuffle=True,
-          nb_epochs=7)
+          nb_epochs=5)
 
 model.save('model.h5')
