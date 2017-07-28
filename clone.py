@@ -68,6 +68,6 @@ model.compile(loss='mse', optimizer='adam')
 model.fit(X_train, y_train,
           validation_split=0.2,
           shuffle=True,
-          epochs=5)
+          epochs=20)
 
 model.save('model.h5')
