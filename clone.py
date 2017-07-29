@@ -1,6 +1,7 @@
 import csv
 import cv2
 import numpy as np
+import matplotlib.pyplot as plt
 
 from keras.models import Sequential
 from keras.layers import Flatten, Dense, Lambda, Cropping2D
@@ -65,9 +66,20 @@ model.add(Dense(1))
 # model.add(Dense(1))
 
 model.compile(loss='mse', optimizer='adam')
-model.fit(X_train, y_train,
-          validation_split=0.2,
-          shuffle=True,
-          epochs=20)
+history_object = model.fit(X_train, y_train,
+                           validation_split=0.2,
+                           shuffle=True,
+                           epochs=20)
 
 model.save('model.h5')
+
+print(history_object.history.keys())
+
+# plot the training and validation loss for each epoch
+plt.plot(history_object.history['loss'])
+plt.plot(history_object.history['val_loss'])
+plt.title('model mean squared error loss')
+plt.ylabel('mean squared error loss')
+plt.xlabel('epoch')
+plt.legend(['training set', 'validation set'], loc='upper right')
+plt.show()
