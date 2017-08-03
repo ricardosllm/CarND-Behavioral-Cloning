@@ -9,6 +9,7 @@ cameras            = ['left', 'center', 'right']
 cameras_correction = [0.25, 0.0, -0.25]
 default_top_ratio  = 0.375
 default_bot_tatio  = 0.125
+
 img_w = 128
 img_h = 32
 img_c = 3
@@ -32,7 +33,7 @@ def generate_samples(data, root_path, batch_size=128):
     """
     while True:
         # Generate random batch of indices
-        indices    = np.random.permutation(data.count()[0])
+        indices = np.random.permutation(data.count()[0])
 
         for batch in range(0, len(indices), batch_size):
             batch_i = indices[batch:(batch + batch_size)]
@@ -45,23 +46,24 @@ def generate_samples(data, root_path, batch_size=128):
                 camera = np.random.randint(len(cameras))
 
                 # Read frame image and work out steering angle
-                image  = mpimg.imread(os.path.join(root_path,
-                                                  data[cameras[camera]].values[i].strip()))
-                angle  = data.steering.values[i] + cameras_correction[camera]
+                image_path = os.path.join(root_path, data[cameras[camera]].values[i].strip())
+                image      = mpimg.imread(image_path)
+                angle      = data.steering.values[i] + cameras_correction[camera]
 
                 # Add random shadow as a vertical slice of image
-                h, w = image.shape[0], image.shape[1]
+                h, w     = image.shape[0], image.shape[1]
                 [x1, x2] = np.random.choice(w, 2, replace=False)
-                k = h / (x2 - x1)
-                b = - k * x1
+                k        = h / (x2 - x1)
+                b        = - k * x1
                 for i in range(h):
                     c = int((i - b) / k)
                     image[i, :c, :] = (image[i, :c, :] * .5).astype(np.int32)
 
                 # Randomly shift up and down while preprocessing
-                delta = .05
+                delta          = .05
                 rand_top_ratio = random.uniform(default_top_ratio - delta, default_top_ratio + delta)
                 rand_bot_ratio = random.uniform(default_bot_tatio - delta, default_bot_tatio + delta)
+
                 image = preprocess(image, top_ratio=rand_top_ratio, bottom_ratio=rand_bot_ratio)
 
                 # Append to batch
@@ -75,3 +77,4 @@ def generate_samples(data, root_path, batch_size=128):
 
             # Yield data
             yield (x, y)
+
