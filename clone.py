@@ -43,7 +43,7 @@ model.compile(optimizer=Adam(lr=1e-04), loss='mean_squared_error')
 history = model.fit_generator(
     generate_samples(train, local_data_path, batch_size),
     steps_per_epoch=train.shape[0] / batch_size,
-    nb_epoch=1,
+    nb_epoch=50,
     validation_data=generate_samples(valid, local_data_path, batch_size),
     validation_steps=valid.shape[0] / batch_size
 )
