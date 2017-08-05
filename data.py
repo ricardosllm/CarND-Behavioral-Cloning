@@ -61,8 +61,10 @@ def generate_samples(data, root_path, batch_size=128):
 
                 # Randomly shift up and down while preprocessing
                 delta          = .05
-                rand_top_ratio = random.uniform(default_top_ratio - delta, default_top_ratio + delta)
-                rand_bot_ratio = random.uniform(default_bot_tatio - delta, default_bot_tatio + delta)
+                rand_top_ratio = random.uniform(default_top_ratio - delta,
+                                                default_top_ratio + delta)
+                rand_bot_ratio = random.uniform(default_bot_tatio - delta,
+                                                default_bot_tatio + delta)
 
                 image = preprocess(image, top_ratio=rand_top_ratio, bottom_ratio=rand_bot_ratio)
 
