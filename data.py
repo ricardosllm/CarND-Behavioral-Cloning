@@ -1,8 +1,8 @@
-import numpy as np
-import skimage.transform as sktransform
-import random
-import matplotlib.image as mpimg
 import os
+import random
+import numpy as np
+import matplotlib as plt
+import skimage.transform as sktransform
 
 
 cameras            = ['left', 'center', 'right']
@@ -63,7 +63,7 @@ def read_image_and_angle(root_path, data, camera, index):
     """
     image_path = os.path.join(root_path,
                               data[cameras[camera]].values[index].strip())
-    image      = mpimg.imread(image_path)
+    image      = plt.image.imread(image_path)
     angle      = data.steering.values[index] + cameras_correction[camera]
 
     return image, angle
