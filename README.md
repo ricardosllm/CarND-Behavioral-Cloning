@@ -121,6 +121,7 @@ The images are provided by a [generator](https://docs.python.org/3/tutorial/clas
 ## Model
 
 I've used a model designed by NVIDIA but simplified it for this project. The model is composed of **3 convolutional layers** followed by **3 fully connected layers**. Between the fully connected layers I applied a **dropout layer** of `50%` and `25%` to reduce overfitting. 
+
 This can be easily coded using [Keras](https://keras.io/) as follows:
 
 ```python
@@ -139,15 +140,16 @@ model.add(Dropout(.25))
 model.add(Dense(20, activation='relu'))
 model.add(Dense(1))
 ```
-I used an **Adam optimizer** with a learning rate of `0.0001` and **mean squared error** as the loss function
+I used an **Adam optimizer** with a learning rate of `0.0001` and **mean squared error** as the loss function.
 
 ```python
 model.compile(optimizer=Adam(lr=1e-04), loss='mean_squared_error')
 ```
 
-The model was trained for **50 epochs** and achieved a loss of `0.0388` and a validation loss of `0.0404`
+The model was trained for **50 epochs** and achieved a loss of `0.0388` and a validation loss of `0.0404`.
 
 ## Results
 
 The model performed very well and is able to **run indefinitely** around the first track and around 75% of the times on the second track, where, at times, it gets stuck on a corner.
-I've attached a video of the car running a full lap on the first track `run1.mp4` and a second video of the car doing a pretty good job on the second track `run2.mp4`
+
+I've attached a video of the car running a full lap on the first track `run1.mp4` and a second video of the car doing a pretty good job on the second track `run2.mp4`.
