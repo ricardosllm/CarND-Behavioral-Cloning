@@ -11,7 +11,7 @@ from keras.layers.convolutional import Conv2D
 from keras.layers.pooling import MaxPooling2D
 from keras.optimizers import Adam
 from sklearn import model_selection
-from data import generate_samples, preprocess
+from data import generate_samples
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
