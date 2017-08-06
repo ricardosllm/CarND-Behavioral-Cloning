@@ -33,7 +33,7 @@ In this case we had images from 3 diferent cameras, all corresponding to a singl
 
 The data set was not extensive as to generalize the model well so I've decied to apply some augmentation techniques:
 
-- **Side cameras:** We'l be using the central camera while driving as input to the model but we can use the side cameras during training by applying correction to the steering angle, `0.25` and `-0.25` to the left and right images respectevly, increasing the number of samples by 3
+- **Side cameras:** We'll be using the central camera while driving as input to the model but we can use the side cameras during training by applying correction to the steering angle, `0.25` and `-0.25` to the left and right images respectevly, increasing the number of samples by 3.
 
 ```python
 cameras            = ['left', 'center', 'right']
@@ -54,19 +54,20 @@ x[flip_i] = x[flip_i, :, ::-1, :]
 y[flip_i] = -y[flip_i]
 ```
 
-- **Cropping top and bottom of the images:** Looking at the images we can cleary see that the top of the image is composed mostly of scenery, not helping the model and adding noise. Also the bottom of the image includes mostly the bonet and also does not help the model. For this I've croppedt these undeed parts, randomly shiffting the window up and down by a delta of `5%` to help the model generalize better, specially for the second track where we have hills and descents. The final image is `128x32` pixels
+- **Cropping top and bottom of the images:** Looking at the images we can cleary see that the top of the image is composed mostly of scenery, not helping the model and adding noise. Also the bottom of the image includes mostly the bonet and also does not help the model. For this I've croppedt these undeed parts, randomly shiffting the window up and down by a delta of `5%` to help the model generalize better, specially for the second track where we have hills and descents.
 
 ```python
-img_w = 128
-img_h = 32
-img_c = 3
+default_top_ratio  = 0.375
+default_bot_tatio  = 0.125
 
-top_ratio  = 0.375
-bot_tatio  = 0.125
+# Randomly shift up and down while preprocessing
+delta          = .05
+rand_top_ratio = random.uniform(default_top_ratio - delta,
+                                default_top_ratio + delta)
+rand_bot_ratio = random.uniform(default_bot_tatio - delta,
+                                default_bot_tatio + delta)
 
-top    = int(top_ratio * image.shape[0])
-bottom = int(bot_ratio * image.shape[0])
-image  = sktransform.resize(image[top:-bottom, :], (img_h, img_w, img_c))
+image = preprocess(image, top_ratio=rand_top_ratio, bot_ratio=rand_bot_ratio)
 ```
 
 - **Adding Shadows:** Another techinque we can use to augement the data and help the model generalize better for different weather conditions is to add random shadows to the images. This is specially important for the second track wich has a lot of pieces of road with direct sunlight and shadow.
@@ -83,10 +84,18 @@ for i in range(h):
     image[i, :c, :] = (image[i, :c, :] * .5).astype(np.int32)
 ```
 
-- **Normalization and scalling:** Finnaly we normalize the pixel values and scale the image to a shape our model expects, `128x32` pixels with 3 RGP channels.
+- **Normalization and scalling:** Finaly we normalize the pixel values and scale the image to a shape our model expects, `128x32` pixels with 3 RGP channels.
 
 ```python
-# ...
+img_w = 128
+img_h = 32
+img_c = 3
+
+top_ratio  = 0.375
+bot_tatio  = 0.125
+
+top    = int(top_ratio * image.shape[0])
+bottom = int(bot_ratio * image.shape[0])
 image  = sktransform.resize(image[top:-bottom, :], (img_h, img_w, img_c))
 ```
 
