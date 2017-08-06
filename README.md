@@ -99,13 +99,22 @@ bottom = int(bot_ratio * image.shape[0])
 image  = sktransform.resize(image[top:-bottom, :], (img_h, img_w, img_c))
 ```
 
-[//]: # (Image References)
+### Augmentation example
 
-[road_center]: ./images/1_center.jpg "Road Center"
-[road_left]: ./images/1_left.jpg "Road Left"
-[road_right]: ./images/1_right.jpg "Road Right"
-[bridge_right]: ./images/2_right.jpg "Road Right"
-[bridge_left]: ./images/2_left.jpg "Bridge Left"
-[bridge_center]: ./images/2_center.jpg "Bridge Center"
+Here we can see the 3 origal images, from the left, center and right front cameras, and the **16** they generate by applying the augmentation pipeline.
+The images are provided by a [generator](https://docs.python.org/3/tutorial/classes.html#generators) to improve performance during training. 
 
-<img src="images/1_left.jpg" width="200"/> <img src="images/1_center.jpg" width="200"/> <img src="images/1_right.jpg" width="200"/> 
+> Original images
+
+<img src="images/1_left.jpg" width="250"/> <img src="images/1_center.jpg" width="250"/> <img src="images/1_right.jpg" width="250" aligh=right/> 
+
+> Augmented images
+
+<img src="images/1_0_test.png" width="200"/> <img src="images/1_1_test.png" width="200"/> <img src="images/1_2_test.png" width="200"/> <img src="images/1_3_test.png" width="200"/>
+
+<img src="images/1_4_test.png" width="200"/> <img src="images/1_5_test.png" width="200"/> <img src="images/1_6_test.png" width="200"/> <img src="images/1_7_test.png" width="200"/>
+
+<img src="images/1_8_test.png" width="200"/> <img src="images/1_9_test.png" width="200"/> <img src="images/1_10_test.png" width="200"/> <img src="images/1_11_test.png" width="200"/>
+
+<img src="images/1_12_test.png" width="200"/> <img src="images/1_13_test.png" width="200"/> <img src="images/1_14_test.png" width="200"/> <img src="images/1_15_test.png" width="200"/>
+
