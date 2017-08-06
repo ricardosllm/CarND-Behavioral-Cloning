@@ -99,3 +99,13 @@ bottom = int(bot_ratio * image.shape[0])
 image  = sktransform.resize(image[top:-bottom, :], (img_h, img_w, img_c))
 ```
 
+[//]: # (Image References)
+
+[road_center]: ./images/1_center.jpg "Road Center"
+[road_left]: ./images/1_left.jpg "Road Left"
+[road_right]: ./images/1_right.jpg "Road Right"
+[bridge_right]: ./images/2_right.jpg "Road Right"
+[bridge_left]: ./images/2_left.jpg "Bridge Left"
+[bridge_center]: ./images/2_center.jpg "Bridge Center"
+
+<img src="images/1_left.jpg" width="200"/> <img src="images/1_center.jpg" width="200"/> <img src="images/1_right.jpg" width="200"/> 
